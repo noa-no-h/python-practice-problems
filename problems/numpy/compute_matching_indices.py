@@ -9,9 +9,11 @@ def compute_matching_indices(x, y):
     Note that the returned array must be one-dimensional! 
     """
 
-    # YOUR CODE HERE
-    # Replace None with an appropriate return value
-    return None
+    boolean_array = (x == y)
+    boolean_list = list(boolean_array)
+    indices_list = [idx for idx, x in enumerate(boolean_list) if x == True]
+    indices_array = np.array(indices_list)
+    return indices_array
     
 
 #############################################################
