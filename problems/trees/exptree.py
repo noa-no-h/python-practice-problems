@@ -38,12 +38,12 @@ class Plus:
 
         return f"({op1_str} + {op2_str})"
 
-
-class Times:
-    def __init__(self, op1, op2):
+class BinOp:
+    def __init__(self, op1, op2, operation):
         self.op1 = op1
         self.op2 = op2
-
+        self.operation = operation
+    
     def is_const(self):
         return False
 
@@ -51,23 +51,35 @@ class Times:
         return 1 + self.op1.num_nodes() + self.op2.num_nodes()
 
     def eval(self):
-        op1_value = self.op1.eval()
-        op2_value = self.op2.eval()
-
-        return op1_value * op2_value
+        if self.operation == 'times':
+            return self.op1.eval() * self.op2.eval()
+        elif self.operation == 'plus':
+            return self.op1.eval() + self.op2.eval()
+        elif self.operation == 'minus':
+            return self.op1.eval() + self.op2.eval()
+        else:
+            return "unsupported operation"
 
     def __str__(self):
         op1_str = str(self.op1)
         op2_str = str(self.op2)
 
-        return f"({op1_str} * {op2_str})"
+        if self.operation == 'times':
+            return f"({op1_str} * {op2_str})"
+        elif self.operation == 'plus':
+            return f"({op1_str} + {op2_str})"
+        elif self.operation == 'minus':
+            return f"({op1_str} - {op2_str})"
+        else:
+            return "unsupported operation"
+
 
 
 if __name__ == "__main__":
 
     # Sample expression tree for (2 + (3 * 5))
     op1 = Int(2)
-    op2 = Times(Int(3), Int(5))
-    expt = Plus(op1, op2)
+    op2 = BinOp(Int(3), Int(5), 'times')
+    expt = BinOp(op1, op2, 'plus')
 
     print(f"{expt} = {expt.eval()}")

@@ -15,22 +15,61 @@ A: 20
         └──E: 60
 """
 
+def test_min_depth_leaf():
+    treeA = Tree('A', 20)
+    treeB = Tree('B', 80)
+    treeC = Tree('C',50)
+    treeD = Tree('D',110)
+    treeE = Tree('E',50)
+    treeF = Tree('F',60)
+
+    treeA.add_child(treeB)
+    treeA.add_child(treeC)
+    treeC.add_child(treeD)
+    treeC.add_child(treeE)
+    treeD.add_child(treeF)
+
+    result = min_depth_leaf(treeA)
+    print(result)
+
+def min_depth_leaf(tree):
+    """
+    Computes the minimum depth of a leaf in the tree (length of shortest
+    path from the root to a leaf).
+    Input:
+        tree: a Tree instance.
+    
+    Returns: (integer) the minimum depth of of a leaf in the tree.
+    """
+
+    if not tree.children:
+        return 0
+    else:
+        depth_list = []
+        for child in tree.children:
+            depth = 1 + min_depth_leaf(child)
+            depth_list.append(depth)
+        min_depth = min(depth_list)
+        return min_depth
+
+
+
 def print_value_every_leaf(tree):
     if tree.children  == []:
         return [str(tree.value)]
     else:
         leaf_value_list = []
         for child in tree.children:
-            leaf_value_list.append(print_value_every_leaf(child))
+            leaf_value_list += print_value_every_leaf(child)
         return leaf_value_list
 
 def test_print():
-    treeA = Tree(20)
-    treeB = Tree(80)
-    treeC = Tree(50)
-    treeD = Tree(110)
-    treeE = Tree(50)
-    treeF = Tree(60)
+    treeA = Tree('A', 20)
+    treeB = Tree('B', 80)
+    treeC = Tree('C',50)
+    treeD = Tree('D',110)
+    treeE = Tree('E',50)
+    treeF = Tree('F',60)
 
     treeA.add_child(treeB)
     treeA.add_child(treeC)
@@ -42,11 +81,9 @@ def test_print():
     print(result)
 
 
-
-
-
-def min_depth_leaf(tree):
+"""def min_depth_leaf(tree):
     """
+"""
     Computes the minimum depth of a leaf in the tree (length of shortest
     path from the root to a leaf).
     Input:
@@ -54,6 +91,7 @@ def min_depth_leaf(tree):
     
     Returns: (integer) the minimum depth of of a leaf in the tree.
     """
+"""
 
     pass
 
@@ -66,13 +104,8 @@ def min_depth_leaf(tree):
             list_child_min_depths.append(min_depth_leaf(child))
         min_depth = 1 + min(list_child_min_depths)
         return min_depth
+"""
 
-"""
- 'J'
- |  |
-'W''M'
-    ||
-"""
 
 #############################################################
 ###                                                       ###

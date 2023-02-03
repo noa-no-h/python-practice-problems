@@ -1,5 +1,22 @@
 from tree import Tree
 
+def test_min_depth_leaf():
+    treeA = Tree('A', 20)
+    treeB = Tree('B', 80)
+    treeC = Tree('C',50)
+    treeD = Tree('D',110)
+    treeE = Tree('E',50)
+    treeF = Tree('F',60)
+
+    treeA.add_child(treeB)
+    treeA.add_child(treeC)
+    treeC.add_child(treeD)
+    treeC.add_child(treeE)
+    treeD.add_child(treeF)
+
+    result = prune_tree(treeA, {'D','C'})
+    Tree.print(result)
+
 def prune_tree(tree, keys_to_discard):
     '''
     Returns a new tree with that is identical to the original tree, except
@@ -14,7 +31,16 @@ def prune_tree(tree, keys_to_discard):
     Returns: (Tree) the pruned tree.
     '''
 
-    #Tree.print(tree)
+    print(f'{keys_to_discard=}')
+    for child in tree.children:
+        print(f'{child.key=}')
+        if child.key in keys_to_discard:
+            tree.children.remove(child)
+        else:
+            prune_tree(child, keys_to_discard)
+    return tree
+    
+    """#Tree.print(tree)
     #print(keys_to_discard)
     if tree in keys_to_discard:
         new_tree = Tree()
@@ -27,7 +53,7 @@ def prune_tree(tree, keys_to_discard):
         print((tree.key, tree.value), keys_pruned_child_list)
         for pruned_tree_child in pruned_tree_child_list:
             tree.add_child(pruned_tree_child)
-        return tree
+        return tree"""
 
 
 #############################################################
