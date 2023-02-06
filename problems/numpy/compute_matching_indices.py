@@ -9,7 +9,11 @@ def compute_matching_indices(x, y):
     Note that the returned array must be one-dimensional! 
     """
 
-    return np.where(x==y)[0]
+    #return np.where(x==y)[0]
+    #use fancy indexing instead
+
+    index_array = np.arange(x.size)
+    return index_array[x==y]
     
 
 #############################################################

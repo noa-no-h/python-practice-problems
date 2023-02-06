@@ -65,7 +65,7 @@ class Graph:
             current_vertex_tuple = priority_queue.pop_min()
             current_vertex = current_vertex_tuple[0]
             if current_vertex == end:
-                return
+                return self.build_path(start, end)
             for neighbor in current_vertex.edges_to:
                 new_distance = distance[current_vertex]\
                                + current_vertex.edges_to[neighbor]
@@ -88,6 +88,8 @@ class Graph:
             vertex = previous
         return path
 
+"""6, 7, 12, 10, 15, 17
+m, c1, c2, c11, c12, c21, c22,"""
 
 class Minheap:
     def __init__(self, max_capacity=999):
@@ -98,10 +100,10 @@ class Minheap:
     def parent(self, i):
         return (i-1)//2
     
-    def left(self, i):
+    def left_index(self, i):
         return 2*i + 1
     
-    def right(self, i):
+    def right_index(self, i):
         return 2*i + 2
 
     def insert(self, vertex, weight):
@@ -127,11 +129,11 @@ class Minheap:
             self.sift_up(parent_idx)
     
     def get_idx_of_min_child(self, idx):
-        print(f'{self.right(idx)=}')
-        if self.right(idx) >= self.next:
-            return self.left(idx)
-        l = self.heap_list[self.left(idx)]
-        r = self.heap_list[self.right(idx)]
+        print(f'{self.right_index(idx)=}')
+        if self.right_index(idx) >= self.next:
+            return self.left_index(idx)
+        l = self.heap_list[self.left_index(idx)]
+        r = self.heap_list[self.right_index(idx)]
         if l[1] < r[1]:
             idx_of_min_child = self.index_of_item[l[0]]
         else:
@@ -139,7 +141,7 @@ class Minheap:
         return idx_of_min_child
 
     def sift_down(self, idx):
-        if self.left(idx) >= self.next:
+        if self.left_index(idx) >= self.next:
             return
         idx_of_min_child = self.get_idx_of_min_child(idx)
         if self.heap_list[idx][1] > self.heap_list[idx_of_min_child][1]:
