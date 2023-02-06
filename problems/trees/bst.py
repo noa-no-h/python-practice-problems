@@ -29,7 +29,7 @@ class Empty:
 
     def add_to_all(self):
         #print(self.value)
-        return self
+        return []
 
 
 class Node:
@@ -71,10 +71,12 @@ class Node:
         print(self.value)
         in_order_list = []
         if self.is_empty():
-            return
-        in_order_list += self.left.inorder()
-        in_order_list += self.value
-        in_order_list += self.right.inorder()
+            return in_order_list
+        if not self.left.is_empty():
+            in_order_list += self.left.inorder()
+        in_order_list += [self.value]
+        if not self.right.is_empty():
+            in_order_list += self.right.inorder()
         return in_order_list
     
     def min_item(self):
@@ -132,7 +134,7 @@ class Node:
         return new_tree
 
     def path_to(self, n):
-        if self.value == n:
+        if type(self) is Empty:
             return [self.value]
         else:
             path_list = []
@@ -156,6 +158,6 @@ if __name__ == "__main__":
     print(str(bst))
     print(f"The min is {bst.min_item()}")
     #print(f"{str(bst.add_to_all())}")
-    print(f"{bst.path_to(15)}")
+    #print(f"{bst.path_to(15)}")
 
-    #print(f'the inorder traversal is {bst.inorder()}')
+    print(f'the inorder traversal is {bst.inorder()}')
